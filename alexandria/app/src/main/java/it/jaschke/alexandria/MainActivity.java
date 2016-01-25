@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.List;
+
 import it.jaschke.alexandria.api.Callback;
 
 
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 
         // Set up the drawer.
         navigationDrawerFragment.setUp(R.id.navigation_drawer,
-                    (DrawerLayout) findViewById(R.id.drawer_layout));
+                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
@@ -124,6 +126,13 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
             return true;
         }
 
+        if(id == android.R.id.home){
+            if(getSupportFragmentManager().getBackStackEntryCount()>1) {
+                super.onBackPressed();
+                return true;
+            }
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -161,9 +170,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         }
     }
 
-    public void goBack(View view){
-        getSupportFragmentManager().popBackStack();
-    }
 
     private boolean isTablet() {
         return (getApplicationContext().getResources().getConfiguration().screenLayout

@@ -74,6 +74,7 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
         shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
     }
 
+
     @Override
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(
@@ -99,6 +100,7 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text) + bookTitle);
+        if(shareActionProvider!=null)
         shareActionProvider.setShareIntent(shareIntent);
 
         String bookSubTitle = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.SUBTITLE));
@@ -122,9 +124,6 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
         String categories = data.getString(data.getColumnIndex(AlexandriaContract.CategoryEntry.CATEGORY));
         ((TextView) rootView.findViewById(R.id.categories)).setText(categories);
 
-        if(rootView.findViewById(R.id.right_container)!=null){
-            rootView.findViewById(R.id.backButton).setVisibility(View.INVISIBLE);
-        }
 
     }
 
